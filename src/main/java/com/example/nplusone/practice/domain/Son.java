@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Child {
+public class Son {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -16,10 +16,10 @@ public class Child {
     @JoinColumn(name = "parent_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Parent parent;
 
-    public Child() {
+    public Son() {
     }
 
-    public Child(String s) {
+    public Son(String s) {
         name = s;
     }
 }

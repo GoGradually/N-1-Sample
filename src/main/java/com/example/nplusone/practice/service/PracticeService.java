@@ -1,10 +1,12 @@
 package com.example.nplusone.practice.service;
 
+import com.example.nplusone.practice.domain.Daughter;
 import com.example.nplusone.practice.domain.GrandParent;
-import com.example.nplusone.practice.repository.ChildRepository;
+import com.example.nplusone.practice.domain.Son;
+import com.example.nplusone.practice.repository.DaughterRepository;
+import com.example.nplusone.practice.repository.SonRepository;
 import com.example.nplusone.practice.repository.GrandParentRepository;
 import com.example.nplusone.practice.repository.ParentRepository;
-import com.example.nplusone.practice.domain.Child;
 import com.example.nplusone.practice.domain.Parent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,8 +19,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PracticeService {
     private final ParentRepository parentRepository;
-    private final ChildRepository childRepository;
+    private final SonRepository sonRepository;
     private final GrandParentRepository grandParentRepository;
+    private final DaughterRepository daughterRepository;
 
     @Transactional(readOnly = true)
     public List<Parent> getParentsByNormal() {
@@ -34,7 +37,7 @@ public class PracticeService {
     public void makeParent() {
         List<Parent> parents = new ArrayList<>();
         GrandParent grandParent = new GrandParent("grandParent");
-        for (Long i = 1L; i <= 1000L; i++) {
+        for (long i = 1L; i <= 1000L; i++) {
             Parent parent = new Parent("parent: " + i);
             parent.setGrandParent(grandParent);
             parents.add(parent);
@@ -46,15 +49,21 @@ public class PracticeService {
 
     @Transactional
     public void makeChild() {
-        List<Child> childList = new ArrayList<>();
+        List<Son> sonList = new ArrayList<>();
+        List<Daughter> daughterList = new ArrayList<>();
         for (long j = 1L; j <= 1000L; j++) {
             Parent parent = parentRepository.findById(j).orElseThrow(() -> new RuntimeException("error"));
             for (int i = 0; i < 100; i++) {
-                Child child = new Child("child: " + i);
-                child.setParent(parent);
-                childList.add(child);
+                Son son = new Son("son: " + i);
+                son.setParent(parent);
+                sonList.add(son);
+
+                Daughter daughter = new Daughter("daughter: " + i);
+                daughter.setParent(parent);
+                daughterList.add(daughter);
             }
         }
-        childRepository.saveAll(childList);
+        sonRepository.saveAll(sonList);
+        daughterRepository.saveAll(daughterList);
     }
 }

@@ -1,0 +1,27 @@
+package com.example.nplusone.practice.domain;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+import static jakarta.persistence.GenerationType.IDENTITY;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+public class Daughter {
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
+    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    private Parent parent;
+
+    public Daughter(String name) {
+        this.name = name;
+    }
+}
