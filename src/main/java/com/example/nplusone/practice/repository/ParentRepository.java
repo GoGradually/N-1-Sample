@@ -23,9 +23,29 @@ public interface ParentRepository extends JpaRepository<Parent, Long> {
      * --------------
      * select p from Parent p join fetch p.sonList s join fetch p.grandParent gp join fetch p.daughterList d
      * Multibag Exception이 발생한다.
+     * - 두개의 컬렉션 간의 카테시안 곱 발생
+     * - son * daughter
+     * - 이는 fetch join만의 문제가 아닌, 조인 연산에 따른 카테시안 곱에 의해 발생하는 문제이다.
+     * - 이 문제는 fetchType.EAGER에서도 동일하게 발생한다.
+     * ----------------
+     * select p from Parent p join fetch p.sonList s join fetch p.grandParent gp join fetch s.grandSonList gs
+     * Parent P1
+     *     Son S1
+     *         GrandSon gs1
+     *         GrandSon gs1
+     *         GrandSon gs2
+     *     Son S2
+     *         GrandSon gs3
+     * (P1, S2, A1)과 같은 의미없는 데이터는 생성되진 않음 - 카테시안 곱은 아님
+     * 기본적으로 Fetch Join은 각 ROW별로 한번만 읽어들여서, O(N)만에 객체 매핑을 수행하는것을 지향
+     * Bag(Unordered List)이 두개 이상이 되면, 단순 ROW별로 한번만 읽어들여서 객체 매핑이 불가능해짐
+     * O(NlogN)만에 객체-매핑하는 동작은 지원하지 않음
+     * 따라서 객체-매핑 순서를 적절히 정해서 객체화하고 싶다면,
+     * - 직접 DTO Projection을 통해 조립하거나,
+     * - Set과 같은 자료구조로 bag이 2개 이상 생기지 않도록 제어
      * @return
      */
-    @Query("select p from Parent p join fetch p.sonList s join fetch p.grandParent gp join fetch p.daughterList d")
+    @Query("select p from Parent p join fetch p.sonList s join fetch p.grandParent gp join fetch s.grandSonList gs")
     List<Parent> findAllByFetch();
 
 }
