@@ -1,10 +1,10 @@
-package com.example.nplusone.practice;
+package com.example.nplusone.practice.repository;
 
+import com.example.nplusone.practice.domain.Parent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ParentRepository extends JpaRepository<Parent, Long> {
 

@@ -1,4 +1,4 @@
-package com.example.nplusone.practice;
+package com.example.nplusone.practice.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

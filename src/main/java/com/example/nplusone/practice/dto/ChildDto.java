@@ -1,6 +1,6 @@
 package com.example.nplusone.practice.dto;
 
-import com.example.nplusone.practice.Child;
+import com.example.nplusone.practice.domain.Child;
 import lombok.Getter;
 
 @Getter

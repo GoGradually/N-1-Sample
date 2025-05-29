@@ -1,13 +1,13 @@
-package com.example.nplusone.practice;
+package com.example.nplusone.practice.controller;
 
 import com.example.nplusone.practice.dto.ParentDto;
+import com.example.nplusone.practice.service.PracticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor

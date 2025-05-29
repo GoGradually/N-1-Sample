@@ -1,5 +1,9 @@
-package com.example.nplusone.practice;
+package com.example.nplusone.practice.service;
 
+import com.example.nplusone.practice.repository.ChildRepository;
+import com.example.nplusone.practice.repository.ParentRepository;
+import com.example.nplusone.practice.domain.Child;
+import com.example.nplusone.practice.domain.Parent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
