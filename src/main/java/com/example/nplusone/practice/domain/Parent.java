@@ -2,6 +2,7 @@ package com.example.nplusone.practice.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,10 @@ public class Parent {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     private final List<Child> childList = new ArrayList<>();
 
+    @Setter
+    @ManyToOne(fetch = FetchType.LAZY)
+    private GrandParent grandParent;
+
     public Parent() {
     }
 
@@ -23,7 +28,4 @@ public class Parent {
         this.name = name;
     }
 
-    public void addChild(Child child) {
-        childList.add(child);
-    }
 }

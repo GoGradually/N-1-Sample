@@ -1,6 +1,8 @@
 package com.example.nplusone.practice.service;
 
+import com.example.nplusone.practice.domain.GrandParent;
 import com.example.nplusone.practice.repository.ChildRepository;
+import com.example.nplusone.practice.repository.GrandParentRepository;
 import com.example.nplusone.practice.repository.ParentRepository;
 import com.example.nplusone.practice.domain.Child;
 import com.example.nplusone.practice.domain.Parent;
@@ -16,6 +18,7 @@ import java.util.List;
 public class PracticeService {
     private final ParentRepository parentRepository;
     private final ChildRepository childRepository;
+    private final GrandParentRepository grandParentRepository;
 
     @Transactional(readOnly = true)
     public List<Parent> getParentsByNormal() {
@@ -30,11 +33,14 @@ public class PracticeService {
     @Transactional
     public void makeParent() {
         List<Parent> parents = new ArrayList<>();
+        GrandParent grandParent = new GrandParent("grandParent");
         for (Long i = 1L; i <= 1000L; i++) {
             Parent parent = new Parent("parent: " + i);
+            parent.setGrandParent(grandParent);
             parents.add(parent);
         }
 
+        grandParentRepository.save(grandParent);
         parentRepository.saveAll(parents);
     }
 
