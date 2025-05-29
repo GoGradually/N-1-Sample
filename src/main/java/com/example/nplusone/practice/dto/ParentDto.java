@@ -13,8 +13,8 @@ public class ParentDto {
     public ParentDto(Parent parent) {
         this.id = parent.getId();
         this.name = parent.getName();
-        this.sonCount = parent.getSonList().size();
         this.daughterCount = parent.getDaughterList().size();
+        this.sonCount = parent.getSonList().size();
         this.grandParentName = parent.getGrandParent().getName();
     }
 }

@@ -16,7 +16,7 @@ public class Parent {
     private String name;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     private final List<Son> sonList = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     private final List<Daughter> daughterList = new ArrayList<>();
 
     @Setter
